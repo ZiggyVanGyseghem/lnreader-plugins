@@ -23,6 +23,7 @@ npm run dev:start
 - **[Plugin Development](./docs/docs.md)** - Complete API reference
 - **[Testing Guide](./docs/website-tutorial.md)** - Test plugins using the web interface
 - **[Komga Plugin](./docs/komga-plugin.md)** - Self-hosted server integration
+- **[Kavita Plugin](./docs/kavita-plugin.md)** - Self-hosted server integration
 
 ## Testing Methods
 
