@@ -180,16 +180,29 @@ class KavitaPlugin implements Plugin.PluginBase {
 
     const chapters: Plugin.ChapterItem[] = [];
 
-    for (const volume of volumes) {
-      for (const chapter of volume.chapters) {
-        chapters.push({
-          name: chapter.title || `Chapter ${chapter.number}`,
-          path: chapter.id.toString(),
-          chapterNumber: parseFloat(chapter.number),
-          releaseTime: chapter.releaseDate
-            ? new Date(chapter.releaseDate).toISOString()
-            : undefined,
-        });
+    if (Array.isArray(volumes)) {
+      for (const volume of volumes) {
+        if (volume.chapters && Array.isArray(volume.chapters)) {
+          for (const chapter of volume.chapters) {
+            const chapterName =
+              chapter.title ||
+              (chapter.number ? `Chapter ${chapter.number}` : 'Unknown Chapter');
+            const chapterNumber = chapter.number
+              ? parseFloat(chapter.number)
+              : undefined;
+
+            chapters.push({
+              name: chapterName,
+              path: chapter.id.toString(),
+              chapterNumber: isNaN(chapterNumber || NaN)
+                ? undefined
+                : chapterNumber,
+              releaseTime: chapter.releaseDate
+                ? new Date(chapter.releaseDate).toISOString()
+                : undefined,
+            });
+          }
+        }
       }
     }
 
