@@ -30,7 +30,8 @@ class KavitaPlugin implements Plugin.PluginBase {
   imageRequestInit?: Plugin.ImageRequestInit;
 
   constructor() {
-    this.site = storage.get('url') || '';
+    const site = storage.get('url');
+    this.site = site ? site.replace(/\/$/, '') : '';
     this.apiKey = storage.get('apiKey') || '';
   }
 
@@ -47,7 +48,12 @@ class KavitaPlugin implements Plugin.PluginBase {
 
     try {
       const authUrl = `${this.site}/api/Plugin/authenticate?apiKey=${this.apiKey}&pluginName=LNReader`;
-      const response = await fetchApi(authUrl, { method: 'POST' });
+      const response = await fetchApi(authUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       const data = await response.json();
 
       if (data && data.token) {
