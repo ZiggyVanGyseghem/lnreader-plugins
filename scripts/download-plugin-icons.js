@@ -20,6 +20,7 @@ const skip = new Set([
   'dragonholic',
   'dragontea',
   'foxaholic',
+  'kavita',
   'kiniga',
   'lightnovelpubvip',
   'moonlightnovel',
